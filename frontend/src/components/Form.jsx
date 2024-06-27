@@ -1,8 +1,40 @@
+import { useState } from "react";
+import { createTask } from "../service/api";
+import { useNavigate } from "react-router-dom";
+
 // eslint-disable-next-line react/prop-types
 const Form = ({ formTitle }) => {
+  const [input, setInput] = useState({
+    title: "",
+    description: "",
+    dueDate: "",
+  });
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(input);
+    if (formTitle === "Update Task") {
+      console.log("herer");
+    } else {
+      await createTask(input);
+    }
+    setInput({
+      title: "",
+      description: "",
+      dueDate: "",
+    });
+    navigate("/");
+  };
   return (
     <div className="min-h-full flex items-center justify-center bg-white mt-24">
-      <form className="bg-white p-8 rounded shadow-md w-full max-w-lg border border-black">
+      <form
+        className="bg-white p-8 rounded shadow-md w-full max-w-lg border border-black"
+        onSubmit={handleSubmit}
+      >
         <h2 className="text-2xl font-bold mb-6 text-center text-black">
           {formTitle}
         </h2>
@@ -16,6 +48,7 @@ const Form = ({ formTitle }) => {
             id="title"
             name="title"
             required
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <div className="mb-4">
@@ -27,6 +60,9 @@ const Form = ({ formTitle }) => {
             id="description"
             name="description"
             required
+            minLength={10}
+            maxLength={500}
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <div className="mb-6">
@@ -39,6 +75,7 @@ const Form = ({ formTitle }) => {
             id="dueDate"
             name="dueDate"
             required
+            onChange={(e) => handleChange(e)}
           />
         </div>
         <button

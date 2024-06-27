@@ -11,7 +11,6 @@ const TaskTable = () => {
   const getTasks = async () => {
     const data = await getAllTask();
     setTasks(data.tasks);
-    console.log(data.tasks);
   };
   return (
     <>
