@@ -1,12 +1,13 @@
 
 import './App.css'
+import TaskTable from './components/TaskTable'
 
 function App() {
  
 
   return (
     <>
-       <div>hi there</div>
+       <TaskTable/>
     </>
   )
 }
