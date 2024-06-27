@@ -1,5 +1,27 @@
+import { useEffect, useState } from "react";
+import { getTaskById } from "../service/api";
+import { Link } from "react-router-dom";
+import { formatDate } from "../util/formatDate";
+
 const SearchBar = () => {
-    return (
+  const [search, setSearch] = useState("");
+  const [result, setResult] = useState();
+
+  let timer;
+  useEffect(() => {
+    clearTimeout(timer);
+    timer = setTimeout(async () => {
+      const res = await getTaskById(search);
+      setResult(res);
+    }, 1500);
+  }, [search]);
+
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  return (
+    <>
       <div className="flex items-center border border-black mx-16 px-2 mt-16 focus-within:border-blue-500 focus-within:border-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -19,10 +41,50 @@ const SearchBar = () => {
           className="h-10 w-full outline-none"
           type="text"
           placeholder="Search By ID"
+          value={search}
+          onChange={handleChange}
         />
       </div>
-    );
-  };
-  
-  export default SearchBar;
-  
+      <div className="px-16 py-4">
+        {result ? (
+          <table className="w-full">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 border-b border-black text-center">
+                  Task ID
+                </th>
+                <th className="py-2 px-4 border-b border-black text-center ">
+                  Task Title
+                </th>
+                <th className="py-2 px-4 border-b border-black text-center ">
+                  Description
+                </th>
+                <th className="py-2 px-4 border-b border-black text-center">
+                  Due Date
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="py-4 px-2 border-b border-black text-center">
+                  {result[0]._id}
+                </td>
+                <td className="py-4 px-2 border-b border-black text-center">
+                  <Link to={`${result._id}`}>{result[0].title}</Link>
+                </td>
+                <td className="py-4 px-2 border-b border-black text-center">
+                  {result[0].description}
+                </td>
+                <td className="py-4 px-2 border-b border-black text-center">
+                  {formatDate(result[0].dueDate)}
+                </td>
+              </tr>{" "}
+            </tbody>
+          </table>
+        ):""}
+      </div>
+    </>
+  );
+};
+
+export default SearchBar;
