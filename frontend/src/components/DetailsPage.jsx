@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getTaskById } from "../service/api";
+import { deleteTask, getTaskById } from "../service/api";
 import { formatDate } from "../util/formatDate.js";
 
 const DetailsPage = () => {
@@ -15,6 +15,10 @@ const DetailsPage = () => {
     const data = await getTaskById(id);
     setDetail(data[0]);
   };
+  const handleClick = async () => { 
+    await deleteTask(id);
+    window.location.href = "/";
+  }
   return (
     <div className="w-full h-[500px] flex flex-col  items-center justify-center px-16">
       <div className="flex items-center">
@@ -43,7 +47,7 @@ const DetailsPage = () => {
           </div>
           <div className="flex items-center mt-4">
               <Link to={`/updateTask/${id}`} className="px-4 py-2 bg-yellow-300 rounded-xl mr-4">Update</Link>
-              <button className="px-4 py-2 bg-red-500 rounded-xl">Delete</button>
+        <button onClick={handleClick} className="px-4 py-2 bg-red-500 rounded-xl">Delete</button>
             </div>
     </div>
   );

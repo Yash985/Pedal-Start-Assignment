@@ -34,3 +34,12 @@ export const updateTask = async (id, task) => {
         console.error(err.message);
     }
 }
+
+export const deleteTask = async (id) => { 
+    try {
+        const res = await axios.delete(`http://localhost:3000/api/v1/tasks/delete/${id}`);
+        return res.data;
+    } catch (err) {
+        console.error(err.message);
+    }
+}       
