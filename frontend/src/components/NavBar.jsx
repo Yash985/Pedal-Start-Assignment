@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const NavBar = () => {
   return (
     <div>
@@ -9,10 +11,24 @@ const NavBar = () => {
         />
         <h2 className="text-2xl font-semibold">Task Mangement Application</h2>
         <div className="flex mr-2">
-          <div className=" text-lg font-medium py-2 px-3 border-r-2 border-black">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `${
+                isActive && "underline text-blue-600"
+              } text-lg font-medium py-2 px-3 border-r-2 border-black`
+            }
+          >
             Dashboard
-          </div>
-          <div className="flex justify-center items-center pl-2">
+          </NavLink>
+          <NavLink
+            to="/newTask"
+            className={({ isActive }) =>
+              `${
+                isActive && "underline text-blue-600"
+              } flex justify-center items-center pl-2`
+            }
+          >
             <p className="text-lg font-medium ">New</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +44,7 @@ const NavBar = () => {
                 d="M12 4.5v15m7.5-7.5h-15"
               />
             </svg>
-          </div>
+          </NavLink>
         </div>
       </div>
     </div>
