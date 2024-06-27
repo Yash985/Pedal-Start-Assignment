@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NewTask from "./pages/NewTask";
 import ErrorCode from "./components/ErrorCode";
+import DetailsPage from "./components/DetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+      },
+      {
+        path: "/:id",
+        element: <DetailsPage />,
       },
       {
         path: "newTask",

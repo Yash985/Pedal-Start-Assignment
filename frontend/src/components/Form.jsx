@@ -1,14 +1,31 @@
-import { useState } from "react";
-import { createTask } from "../service/api";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { createTask, getTaskById, updateTask } from "../service/api";
+import { useNavigate, useParams } from "react-router-dom";
+import { formatDate } from "../util/formatDate";
 
 // eslint-disable-next-line react/prop-types
 const Form = ({ formTitle }) => {
+  const { id } = useParams();
   const [input, setInput] = useState({
     title: "",
     description: "",
     dueDate: "",
   });
+
+  useEffect(() => {
+    if (id) {
+      getPreviousData();
+    }
+  }, []);
+
+  const getPreviousData = async () => {
+    const res = await getTaskById(id);
+    setInput({
+      title: res[0].title,
+      description: res[0].description,
+      dueDate: res[0].dueDate,
+    }); 
+  };
   const navigate = useNavigate();
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -16,9 +33,10 @@ const Form = ({ formTitle }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(input);
+    
     if (formTitle === "Update Task") {
-      console.log("herer");
+      await updateTask(id, input);
+      navigate("/");
     } else {
       await createTask(input);
     }
@@ -47,6 +65,7 @@ const Form = ({ formTitle }) => {
             type="text"
             id="title"
             name="title"
+            value={input.title}
             required
             onChange={(e) => handleChange(e)}
           />
@@ -59,6 +78,7 @@ const Form = ({ formTitle }) => {
             className="w-full p-2 border border-black rounded outline-none focus:ring-2 focus:ring-black"
             id="description"
             name="description"
+            value={input.description}
             required
             minLength={10}
             maxLength={500}
@@ -73,6 +93,7 @@ const Form = ({ formTitle }) => {
             className="w-full p-2 border border-black rounded outline-none focus:ring-2 focus:ring-black"
             type="date"
             id="dueDate"
+            value={formatDate(input.dueDate)}
             name="dueDate"
             required
             onChange={(e) => handleChange(e)}
@@ -82,7 +103,7 @@ const Form = ({ formTitle }) => {
           className="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition duration-200"
           type="submit"
         >
-          Add Task
+          {formTitle==="Update Task"?"Update Task":"Add Task"}
         </button>
       </form>
     </div>
