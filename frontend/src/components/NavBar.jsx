@@ -6,7 +6,7 @@ const NavBar = () => {
       <div className="h-16 flex items-center justify-between py-2 px-4 border border-b-2 border-black overflow-hidden">
         <img
           className="h-36 w-36 hidden md:block"
-          src="../src/assets/pedalLogo2.png"
+          src="./pedalLogo2.png"
           alt="Logo"
         />
         <h2 className="md:text-2xl font-semibold">Task Mangement Application</h2>
