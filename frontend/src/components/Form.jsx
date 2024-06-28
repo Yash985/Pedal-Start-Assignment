@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createTask, getTaskById, updateTask } from "../service/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { formatDate } from "../util/formatDate";
+import toast from "react-hot-toast";
 
 // eslint-disable-next-line react/prop-types
 const Form = ({ formTitle }) => {
@@ -35,17 +36,23 @@ const Form = ({ formTitle }) => {
     e.preventDefault();
     
     if (formTitle === "Update Task") {
-      await updateTask(id, input);
+      const res = updateTask(id, input);
+      toast.promise(res, {
+        loading: 'Loading',
+        success: 'Data updated',
+        error: 'Error while updating',
+      });
       navigate("/");
     } else {
-      await createTask(input);
+      const res= createTask(input);
+      toast.promise(res, {
+        loading: "Loading",
+        success: "Task Created Successfully",
+        error:"Error while creating task"
+      })
+      navigate("/");
     }
-    setInput({
-      title: "",
-      description: "",
-      dueDate: "",
-    });
-    navigate("/");
+    
   };
   return (
     <div className="min-h-full flex items-center justify-center bg-white mt-24">

@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NewTask from "./pages/NewTask";
 import ErrorCode from "./components/ErrorCode";
 import DetailsPage from "./components/DetailsPage";
+import {Toaster} from "react-hot-toast"
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <Toaster/>
     </>
   );
 }
