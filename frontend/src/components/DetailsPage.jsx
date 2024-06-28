@@ -49,18 +49,7 @@ const DetailsPage = () => {
         </p>
         <div className="">
           <p className="uppercase md:text-base text-sm text-wrap">
-            {detail?.description} Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Amet et eum corrupti laborum dolor ad ipsum
-            maiores a nemo nihil quidem, reprehenderit deserunt asperiores!
-            Laudantium molestias optio iure mollitia exercitationem, at earum.
-            Iste quae quis eaque aperiam pariatur laudantium, modi tempora earum
-            consequatur fugit nihil nulla aliquam ratione ipsum provident
-            inventore officiis qui dolor sunt, ea quibusdam quaerat sed animi
-            temporibus! Mollitia vitae commodi quasi eveniet minus tenetur saepe
-            dolorum possimus? Tenetur, eaque odit? Aspernatur cupiditate
-            sapiente iste nemo commodi repellat illum architecto quae saepe
-            omnis, porro dolore impedit nihil ullam ad magnam ex consequatur
-            earum debitis cumque placeat? Quo!
+            {detail?.description}
           </p>
         </div>
       </div>
