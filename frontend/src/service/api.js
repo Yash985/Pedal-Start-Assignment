@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export const getAllTask = async () => {
   try {
@@ -26,6 +27,7 @@ export const createTask = async (task) => {
       "https://pedal-start-assignment.onrender.com/api/v1/tasks/create",
       task
     );
+    
     return res.data;
   } catch (err) {
     console.error(err.message);

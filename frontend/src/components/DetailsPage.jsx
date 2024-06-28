@@ -17,12 +17,12 @@ const DetailsPage = () => {
     setDetail(data[0]);
   };
   const handleClick = async () => {
-    const res = deleteTask(id);
-    toast.promise(res, {
-      loading: "Loading",
-      success: "Task deleted successfully",
-      error: "Error while deleting",
-    });
+    const res = await deleteTask(id);
+    if (res.success) {
+      toast.success(res.message);
+    } else {
+      toast.error(res.message);
+    }
     navigate("/");
   };
   return (

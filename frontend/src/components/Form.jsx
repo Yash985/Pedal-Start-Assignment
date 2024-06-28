@@ -36,20 +36,20 @@ const Form = ({ formTitle }) => {
     e.preventDefault();
     
     if (formTitle === "Update Task") {
-      const res = updateTask(id, input);
-      toast.promise(res, {
-        loading: 'Loading',
-        success: 'Data updated',
-        error: 'Error while updating',
-      });
+      const res = await updateTask(id, input);
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error(res.message)
+      }
       navigate("/");
     } else {
-      const res= createTask(input);
-      toast.promise(res, {
-        loading: "Loading",
-        success: "Task Created Successfully",
-        error:"Error while creating task"
-      })
+      const res = await createTask(input);
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error(res.message)
+      }
       navigate("/");
     }
     

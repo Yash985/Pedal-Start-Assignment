@@ -7,13 +7,15 @@ const SearchBar = () => {
   const [search, setSearch] = useState("");
   const [result, setResult] = useState();
 
-  let timer;
   useEffect(() => {
-    clearTimeout(timer);
-    timer = setTimeout(async () => {
-      const res = await getTaskById(search);
-      setResult(res);
+    const timer = setTimeout(async () => {
+      if (search) {
+        const res = await getTaskById(search);
+        setResult(res);
+      }
     }, 1500);
+
+    return () => clearTimeout(timer);
   }, [search]);
 
   const handleChange = (e) => {
@@ -81,7 +83,9 @@ const SearchBar = () => {
               </tr>{" "}
             </tbody>
           </table>
-        ):""}
+        ) : (
+          ""
+        )}
       </div>
     </>
   );
