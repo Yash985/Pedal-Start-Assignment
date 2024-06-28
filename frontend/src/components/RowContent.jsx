@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 const RowContent = ({ task }) => {
   return (
       <tr>
-        <td className="py-4 px-2 border-b border-black text-center">
-          {task._id}
+        <td className="py-4 px-2 border-b border-black text-center hidden md:block">
+        {task._id}
         </td>
         <td className="py-4 px-2 border-b border-black text-center">
-          <Link to={`${task._id}`} className="hover:underline">{task.title}</Link>
+          <Link to={`${task._id}`} className="md:hover:underline">{task.title}</Link>
         </td>
-        <td className="py-4 px-2 border-b border-black text-center">
+        <td className="py-4 px-2 border-b border-black text-center hidden md:block">
           {task.description>40 ? task.description.slice(0, 40) + "..." : task.description}
         </td>
         <td className="py-4 px-2 border-b border-black text-center">
